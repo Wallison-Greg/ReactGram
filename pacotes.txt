@@ -1,0 +1,11 @@
+npm i bcryptjs
+npm i cors
+npm i dotenv
+npm i express
+npm i express-validator
+npm i jsonwebtoken
+npm i mongoose
+npm i multer 
+npm i --save-dev nodemon 
+
+pass: ROoknMJ9LZRF8zlL
