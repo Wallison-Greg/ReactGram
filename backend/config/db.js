@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 
-const connString = `mongodb+srv://wallisongregorio2022:ROoknMJ9LZRF8zlL@cluster0.mdlltrt.mongodb.net/?retryWrites=true&w=majority`;
+const dbUser = process.env.DB_USER;
+const dbPass = process.env.DB_PASS;
+
+const connString = `mongodb+srv://${dbUser}:${dbPass}@cluster0.mdlltrt.mongodb.net/?retryWrites=true&w=majority`;
 
 const conn = async () => {
 
