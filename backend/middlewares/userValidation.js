@@ -33,8 +33,20 @@ const userCreateValidation = () => {
     ];
 };
 
+const loginValidation = () => {
+    return [
+        body("email")
+            .isString().withMessage("email obrigatorio.")
+            .isEmail().withMessage("insira um email valido"),
+            
+        body("password")
+            .isString().withMessage("senha obrigatorio")
+    ]
+}
+
 module.exports = {
     userCreateValidation,
+    loginValidation,
 };
 
 /*Fazendo a validação do usuario utilizando o express-validator
