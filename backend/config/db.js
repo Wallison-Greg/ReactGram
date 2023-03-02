@@ -5,6 +5,8 @@ const dbPass = process.env.DB_PASS;
 
 const connString = `mongodb+srv://${dbUser}:${dbPass}@cluster0.mdlltrt.mongodb.net/?retryWrites=true&w=majority`;
 
+mongoose.set("strictQuery", false);
+
 const conn = async () => {
 
     try {

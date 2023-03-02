@@ -5,9 +5,12 @@ const router = express.Router();
 const {register} = require("../controllers/UserControler");
 
 //middlewares
-const validate = require("../middlewares/handleValidation")
+const validate = require("../middlewares/handleValidation");
+const {userCreateValidation} = require("../middlewares/userValidation");
 
 //routes
-router.post("/register", validate, register);
+router.post("/register", userCreateValidation() ,validate, register);
+
+//nessa rota estamos utilizando 2 middlewares para fazer a validação antes de executar a função de registro 
 
 module.exports = router;
