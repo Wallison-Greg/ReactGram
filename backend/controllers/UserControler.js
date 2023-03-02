@@ -51,8 +51,31 @@ const register = async (req, res) => {
 };
 
 //sign user in 
-const login = (req, res) => {
-    res.send("login")
+const login = async (req, res) => {
+    const {email, password} = req.body
+
+    const user = await User.findOne({email})
+
+    //checando se o usuario ja foi cadastrado
+    if(!user){
+        res.status(404).json({errors: ["Usuario não econtrado !"]})
+        return
+    }
+
+    //checando se a senha inserida e valida para esse usuario
+    if(!(await bcrypt.compare(password, user.password))){
+        //essa condição verifica se a senha do login e diferente da senha q foi utilizada no cadastro
+
+        res.status(422).json({errors: ["senha invalida"]})
+        return
+    }
+
+    //token do login
+    res.status(201).json({
+        _id: user._id,
+        profileImage: user.profileImage,
+        token: generateToken(user._id),
+    });
 }
 
 module.exports = {
