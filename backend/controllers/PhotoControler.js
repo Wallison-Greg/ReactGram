@@ -38,30 +38,72 @@ const deletePhoto = async (req, res) => {
 
     try {
 
-        const photo = await Photo.findById(mongoose.Types.ObjectId(id))
+        const photo = await Photo.findById(mongoose.Types.ObjectId(id));
 
         //check if photo exist
 
         if(!photo){
-            res.status(404).json({errors: ["foto não encontrada"]})
-            return
+            res.status(404).json({errors: ["foto não encontrada"]});
+            return;
         }
 
         //check if photo belongs to user 
         if(!photo.userId.equals(reqUser._id)){
-            res.status(422).json({errors: ["houve um problema, porfavor tente mais tarde"]})
+            res.status(422).json({errors: ["houve um problema, porfavor tente mais tarde"]});
         }
 
-        await Photo.findByIdAndDelete(photo._id)
+        await Photo.findByIdAndDelete(photo._id);
 
-        res.status(200).json({id: photo._id, message: "foto excluida com sucesso"})
+        res.status(200).json({id: photo._id, message: "foto excluida com sucesso"});
 
     } catch (error) {
-        res.status(404).json({errors: ["foto não encontrada"]})
+        res.status(404).json({errors: ["foto não encontrada"]});
+        return;
     }
+}
+
+//get all photo 
+
+const getAllPhoto = async(req, res) => {
+
+    const photos = await Photo.find({}).sort([["createdAt", -1]]).exec();
+
+    return res.status(200).json(photos);
+}
+
+//get user photos
+
+const getUserPhotos = async (req, res) => {
+
+    const {id} = req.params
+
+    const photos = await Photo.find({userId: id}).sort([["createdAt", -1]]).exec();
+
+    return res.status(200).json(photos);
+}
+
+//get photo by id
+
+const getPhotoById = async (req, res) => {
+
+    const {id} = req.params
+
+    const photo = await Photo.findById(mongoose.Types.ObjectId(id));
+
+    //checked is exist
+
+    if(!photo){
+        res.status(404).json({errors: ["foto não encontrada"]});
+        return
+    }
+
+    res.status(200).json(photo)
 }
 
 module.exports = {
     insertPhoto,
     deletePhoto,
+    getAllPhoto,
+    getUserPhotos,
+    getPhotoById,
 }
