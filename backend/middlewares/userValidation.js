@@ -60,7 +60,7 @@ const userUpdateValidation = () => {
 module.exports = {
     userCreateValidation,
     loginValidation,
-    userUpdateValidation,
+    userUpdateValidation
 };
 
 /*Fazendo a validação do usuario utilizando o express-validator
