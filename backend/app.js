@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:false}));
 
 //cors
 
-app.use(cors({credentials: true, origin: "http://loaclhost:3000"}));
+app.use(cors({credentials: true, origin: "http://localhost:3000"}));
 
 //upload directory
 
