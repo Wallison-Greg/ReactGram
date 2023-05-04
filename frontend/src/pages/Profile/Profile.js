@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 
 //redux
 import { getUserDetails } from "../../slices/userSlice";
-import { publishPhoto, resetMessage, getUserPhotos } from "../../slices/photoSlice";
+import { publishPhoto, resetMessage, getUserPhotos, deletePhoto } from "../../slices/photoSlice";
 
 const Profile = () => {
 
@@ -85,8 +85,11 @@ const Profile = () => {
 
     }
     
-    const handleDelete = () => {
-        
+    //delete a photo
+    const handleDelete = (id) => {
+        dispatch(deletePhoto(id));
+
+        resetComponentMessage();
     }
 
     if(loading){
@@ -139,7 +142,7 @@ const Profile = () => {
                                         <Link to={`/photos/${photo._id}`}>
                                             <BsFillEyeFill/>
                                             <BsPencilFill/>
-                                            <BsXLg/>
+                                            <BsXLg onClick={() => handleDelete(photo._id)}/>
                                         </Link>
                                     </div>
                                 ) : (
